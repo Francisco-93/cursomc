@@ -1,7 +1,6 @@
 package com.franciscoaguiar.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.franciscoaguiar.cursomc.domain.Categoria;
 import com.franciscoaguiar.cursomc.services.CategoriaService;
 
+
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -22,9 +22,9 @@ public class CategoriaResource {
 	CategoriaService service;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
-		Categoria categoria = service.buscar(id);
-		return new ResponseEntity<Categoria>(categoria, HttpStatus.OK);
+	public ResponseEntity<Categoria> findById(@PathVariable Integer id){
+		Categoria obj = service.buscar(id);
+		return new ResponseEntity<Categoria>(obj, HttpStatus.OK);
 	}
 
 }
