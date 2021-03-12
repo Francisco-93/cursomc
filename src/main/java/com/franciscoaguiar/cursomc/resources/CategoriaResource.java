@@ -1,6 +1,8 @@
 package com.franciscoaguiar.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.franciscoaguiar.cursomc.domain.Categoria;
+import com.franciscoaguiar.cursomc.dto.CategoriaDTO;
 import com.franciscoaguiar.cursomc.services.CategoriaService;
 
 
@@ -52,6 +55,21 @@ public class CategoriaResource {
 		service.find(id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(cat -> new CategoriaDTO(cat)).collect(Collectors.toList());		
+		
+		return new ResponseEntity<List<CategoriaDTO>>(listDTO, HttpStatus.OK);
+	}
+	
+	private Categoria DTOParseObject(CategoriaDTO catDTO) {
+		Categoria cat = new Categoria();
+		cat.setId(catDTO.getId());
+		cat.setNome(catDTO.getNome());
+		return cat;
 	}
 
 }
