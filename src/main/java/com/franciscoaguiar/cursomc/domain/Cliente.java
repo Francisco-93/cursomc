@@ -49,7 +49,7 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipoCliente = tipoCliente.getCod();
+		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
 	}
 
 	public Integer getId() {
@@ -85,7 +85,7 @@ public class Cliente implements Serializable{
 	}
 
 	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(this.tipoCliente);
+		return (this.tipoCliente == null) ? null : TipoCliente.toEnum(this.tipoCliente);
 	}
 
 	public void setTipo(TipoCliente tipoCliente) {
@@ -128,6 +128,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 }
