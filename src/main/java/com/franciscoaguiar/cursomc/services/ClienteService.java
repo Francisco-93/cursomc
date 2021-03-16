@@ -46,7 +46,7 @@ public class ClienteService {
 		if (cli.getPedidos().isEmpty()) {
 			repository.deleteById(id);
 		} else {
-			throw new DataIntegrityException("Não é possível excluir um cliente, pois há pedidos relacionadas");
+			throw new DataIntegrityException("Não é possível excluir um cliente, pois há pedidos relacionados");
 		}
 
 	}
