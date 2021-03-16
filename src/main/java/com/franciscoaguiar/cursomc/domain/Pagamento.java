@@ -55,7 +55,7 @@ public abstract class Pagamento implements Serializable{
 	}
 
 	public Pedido getPedido() {
-		return pedido;
+		return pedido; 
 	}
 
 	public void setPedido(Pedido pedido) {
