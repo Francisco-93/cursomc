@@ -73,7 +73,15 @@ public class CursomcApplication implements CommandLineRunner{
 		Produto p1 = new Produto(null, "Compuatdor", 2000.0);
 		Produto p2 = new Produto(null, "Impressora", 800.0);
 		Produto p3 = new Produto(null, "Mouse", 80.0);
-		
+		Produto p4 = new Produto(null, "Mesa de escritório", 300.0);
+		Produto p5 = new Produto(null, "Toalha", 50.0);
+		Produto p6 = new Produto(null, "Colcha", 200.0);
+		Produto p7 = new Produto(null, "TV true color", 1200.0);
+		Produto p8 = new Produto(null, "Roçadeira", 800.0);
+		Produto p9 = new Produto(null, "Abajour", 100.0);
+		Produto p10 = new Produto(null, "Pendente", 180.0);
+		Produto p11 = new Produto(null, "Shampoo", 30.0);
+
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 		Categoria cat3 = new Categoria(null, "Cama, mesa e banho");
@@ -83,14 +91,19 @@ public class CursomcApplication implements CommandLineRunner{
 		Categoria cat7 = new Categoria(null, "Perfumaria");
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
-		
+		cat2.getProdutos().addAll(Arrays.asList(p2, p4));
+		cat3.getProdutos().addAll(Arrays.asList(p2, p4));
+		cat4.getProdutos().addAll(Arrays.asList(p1, p2, p3, p7));
+		cat5.getProdutos().addAll(Arrays.asList(p8));
+		cat6.getProdutos().addAll(Arrays.asList(p9, p10));
+		cat7.getProdutos().addAll(Arrays.asList(p11));
+
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2,cat3,cat4,cat5,cat6,cat7));
-		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+		produtoRepository.saveAll(Arrays.asList(p1,p2,p3, p4, p5, p6, p7, p8, p9, p10, p11));
 	
 		
 		/***   CIDADE E ESTADO   ***/
@@ -144,9 +157,9 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
-		
-		
-		
+
+
+
 		/***   ITEM_PEDIDO PEDIDO E PRODUTO   ***/
 		
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.0);
