@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,9 @@ public class ClienteResource {
 
 	@Autowired
 	private ClienteService service;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
@@ -85,11 +89,11 @@ public class ClienteResource {
 	}
 
 	private Cliente DTOParseObject(ClienteDTO cliDTO) {
-		return new Cliente(cliDTO.getId(), cliDTO.getNome(), cliDTO.getEmail(), null, null);
+		return new Cliente(cliDTO.getId(), cliDTO.getNome(), cliDTO.getEmail(), null, null, null);
 	}
 	
 	private Cliente DTOParseObject(ClienteNewDTO cliDTO) {
-		Cliente cli = new Cliente(null, cliDTO.getNome(), cliDTO.getEmail(), cliDTO.getCpfOuCnpj(), TipoCliente.toEnum(cliDTO.getTipoCliente()));
+		Cliente cli = new Cliente(null, cliDTO.getNome(), cliDTO.getEmail(), cliDTO.getCpfOuCnpj(), TipoCliente.toEnum(cliDTO.getTipoCliente()), passwordEncoder.encode(cliDTO.getSenha()));
 		Cidade cid = new Cidade(cliDTO.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, cliDTO.getLogradouro(), cliDTO.getNumero(), cliDTO.getComplemento(), cliDTO.getBairro(), cliDTO.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
