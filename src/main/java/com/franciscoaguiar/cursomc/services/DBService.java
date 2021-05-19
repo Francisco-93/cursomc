@@ -2,6 +2,7 @@ package com.franciscoaguiar.cursomc.services;
 
 import com.franciscoaguiar.cursomc.domain.*;
 import com.franciscoaguiar.cursomc.domain.enums.EstadoPagamento;
+import com.franciscoaguiar.cursomc.domain.enums.Perfil;
 import com.franciscoaguiar.cursomc.domain.enums.TipoCliente;
 import com.franciscoaguiar.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,15 +107,21 @@ public class DBService {
         /***   ENDERECO CLIENTE CIDADE   ***/
 
         Cliente cli1 = new Cliente(null, "Francisco Frota de Aguiar", "francisco.fro.agui@gmail.com", "03714849106", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("1234"));
+        Cliente cli2 = new Cliente(null, "Miriã Costa de Aguiar", "miria.c.barros@gmail.com", "01833799186", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("1234"));
+        cli1.addPerfil(Perfil.ADMIN);
+
         cli1.getTelefones().addAll(Arrays.asList("33581722", "994011975"));
+        cli2.getTelefones().addAll(Arrays.asList("33581722", "982724821"));
 
         Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardins Europa", "38220834", cli1, c1);
-        Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Casa 15", "Beira Mar", "38777012", cli1, c2);
+        Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Casa 15", "Beira Mar", "38777012", cli2, c2);
         Endereco e3 = new Endereco(null, "QR 208 Conjunto 08", "30", "casa", "Samambaia Norte", "72316109", cli1, c4);
 
-        cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+        cli1.getEnderecos().addAll(Arrays.asList(e1,e3));
+        cli2.getEnderecos().addAll(Arrays.asList(e2));
 
         clienteRepository.save(cli1);
+        clienteRepository.save(cli2);
         enderecoRepository.saveAll(Arrays.asList(e1,e2,e3));
 
 
