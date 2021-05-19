@@ -101,7 +101,7 @@ public class DBService {
 
         /***   ENDERECO CLIENTE CIDADE   ***/
 
-        Cliente cli1 = new Cliente(null, "Francisco Frota de Aguiar", "francisco@gmail.com", "03714849106", TipoCliente.PESSOA_FISICA);
+        Cliente cli1 = new Cliente(null, "Francisco Frota de Aguiar", "francisco.fro.agui@gmail.com", "03714849106", TipoCliente.PESSOA_FISICA);
         cli1.getTelefones().addAll(Arrays.asList("33581722", "994011975"));
 
         Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardins Europa", "38220834", cli1, c1);
