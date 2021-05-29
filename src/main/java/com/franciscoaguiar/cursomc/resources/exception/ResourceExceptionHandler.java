@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.franciscoaguiar.cursomc.services.exceptions.AuthorizationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -36,6 +37,12 @@ public class ResourceExceptionHandler {
 			erro.addError(x.getField(), x.getDefaultMessage());
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+		StandardError erro = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), Instant.now(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
 	}
 	
 }

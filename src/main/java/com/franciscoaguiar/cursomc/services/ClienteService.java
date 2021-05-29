@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.franciscoaguiar.cursomc.domain.enums.Perfil;
+import com.franciscoaguiar.cursomc.security.UserSS;
+import com.franciscoaguiar.cursomc.services.exceptions.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,11 @@ public class ClienteService {
 	private ClienteRepository repository;
 
 	public Cliente find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Cliente> Cliente = repository.findById(id);
 		return Cliente.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
