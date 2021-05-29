@@ -1,5 +1,6 @@
 package com.franciscoaguiar.cursomc.services;
 
+import com.franciscoaguiar.cursomc.domain.Cliente;
 import com.franciscoaguiar.cursomc.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -15,4 +16,5 @@ public interface EmailService {
 
     void sendHtmlEmail(MimeMessage msg);
 
+    void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
